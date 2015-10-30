@@ -18,5 +18,5 @@ template '/etc/tmux.conf' do
 end
 
 template '/home/vagrant/.bash_aliases' do
-  source 'bash_aliases'
+  source 'bash_aliases.erb'
 end
