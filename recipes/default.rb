@@ -13,6 +13,11 @@ cookbook_file '/root/doit.sh' do
     mode '0755'
 end
 
+cookbook_file '/root/killclient.sh' do
+    source 'killclient.sh'
+    mode '0755'
+end
+
 template '/etc/tmux.conf' do
   source 'tmux.conf.erb'
 end
