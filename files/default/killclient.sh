@@ -15,11 +15,11 @@ function start_chef_client() {
     kitchen-chef)
       kchef $1;;
     compile)
-      chef-client -o 'killclient::compile_sleep' ;;
+      chef-client -o "killclient::compile_sleep" ;;
     converge)
-      chef-client -o 'killclient::converge_sleep' ;;
+      chef-client -o "killclient::converge_sleep" ;;
     *)
-      echo 'HUh?'
+      echo "HUh?"
       exit 1;;
   esac
   sleep 5
@@ -27,12 +27,12 @@ function start_chef_client() {
 
 function server-chef() {
   act=$1
-  chef-client -o 'killclient::${act}_sleep' &
+  chef-client -o "killclient::${act}_sleep" &
   one=$!
   sleep 5
   view
 
-  chef-client -o 'killclient::${act}_sleep' &
+  chef-client -o "killclient::${act}_sleep" &
   two=$!
   sleep 5
   view
@@ -45,17 +45,17 @@ function server-chef() {
 }
 function 3x_server-chef() {
   act=$1
-  chef-client -o 'killclient::${act}_sleep' &
+  chef-client -o "killclient::${act}_sleep" &
   one=$!
   sleep 5
   view
 
-  chef-client -o 'killclient::${act}_sleep' &
+  chef-client -o "killclient::${act}_sleep" &
   two=$!
   sleep 5
   view
 
-  chef-client -o 'killclient::${act}_sleep' &
+  chef-client -o "killclient::${act}_sleep" &
   three=$!
   sleep 5
   view
