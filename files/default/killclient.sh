@@ -25,19 +25,20 @@ function start_chef_client() {
   sleep 5
 }
 
-function server-chef-compile() {
-  chef-client -o 'killclient::compile_sleep' &
+function server-chef() {
+  act=$1
+  chef-client -o 'killclient::${act}_sleep' &
   one=$!
   sleep 5
   view
 
-  chef-client -o 'killclient::compile_sleep' &
+  chef-client -o 'killclient::${act}_sleep' &
   two=$!
   sleep 5
   view
 
   echo "Kill the job: $one; keep two: $two"
-  kill -9 $one
+  kill INT $one
   sleep 3
 
   view
@@ -65,3 +66,4 @@ function two_run_case() {
 
 #simple_case
 #two_run_case
+server-chef compile
