@@ -38,7 +38,30 @@ function server-chef() {
   view
 
   echo "Kill the job: $one; keep two: $two"
-  kill INT $one
+  kill -INT $one
+  sleep 3
+
+  view
+}
+function 3x_server-chef() {
+  act=$1
+  chef-client -o 'killclient::${act}_sleep' &
+  one=$!
+  sleep 5
+  view
+
+  chef-client -o 'killclient::${act}_sleep' &
+  two=$!
+  sleep 5
+  view
+
+  chef-client -o 'killclient::${act}_sleep' &
+  three=$!
+  sleep 5
+  view
+
+  echo "Kill the job: $one; keep two: $two; keep three: $three"
+  kill -INT $one
   sleep 3
 
   view
