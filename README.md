@@ -1,5 +1,14 @@
 # killclient
 
+## Repurposing
+
+If a chef-client is wedged:
+- capture diagnostics from running process
+- drop a ping on the chef-server
+- kill all the chef chef-clients
+- get the run-parameters for chef from Cron (if applicable)
+- rerun with strace and debugging on.
+- bundle it all up.
 
 
 The purpose of this cookbook is to demonstrate the chef-client process failure modes reported by customer B.  To wit:
@@ -41,6 +50,15 @@ knife bootstrap 127.0.0.1 -p 2222 \
 ```
   - The default recipe installs the `killclient` script and some useful tools
 - `kitchen login` and `sudo bash` to login and be root
-- Use /root/killclient to try different futzing scenarios.
+- Use /root/killclient to try different futzing scenarios. For example:
+- `tmux` and open a couple of panes
+- Try the aliases to watch stuff:
+```
+alias ts="sudo tshark -f 'host chefserver.cheffian.com and  tcp[tcpflags] & (tcp-syn) != 0 and tcp[tcpflags] & (tcp-ack) != 0'"
+alias pschef="ps -C chef -fL"
+alias lsofchef="watch -n 1 sudo lsof -i -P -n"
+```
+- Run chef-client with sleep either in the compile or converge phases:
+  - `chef-client -o 'recipe[killclient::compile_sleep]'`
 
 ### killclient:

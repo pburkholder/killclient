@@ -18,6 +18,13 @@ cookbook_file '/root/killclient.sh' do
     mode '0755'
 end
 
+cookbook_file '/root/chefdiag.sh' do
+  source 'diag.sh'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
 template '/etc/tmux.conf' do
   source 'tmux.conf.erb'
 end
