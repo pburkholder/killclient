@@ -45,7 +45,7 @@ function ps_all_chef_processes() {
 }
 
 function ping_chef_server() {
-  knife raw /ping/from/$REPORT_DIR/$1 || true
+  knife raw -c /etc/chef/client.rb /ping/from/$REPORT_DIR/$1 || true
 }
 
 function get_chef_client_cron_job() {
