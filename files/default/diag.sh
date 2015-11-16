@@ -45,10 +45,7 @@ function ps_all_chef_processes() {
 }
 
 function ping_chef_server() {
-  chef_server_url=$(knife exec \
-    -c /etc/chef/client.rb  \
-    -E "print Chef::Config.chef_server_url")
-  curl -so /dev/null $chef_server_url/ping/from/$REPORT_DIR/$1 || true
+  knife raw /ping/from/$REPORT_DIR/$1 || true
 }
 
 function get_chef_client_cron_job() {
@@ -67,7 +64,7 @@ function run_chef_client() {
 function pack_up() {
   tar -C $CACHE_PATH -czf $REPORT_DIR.tgz $REPORT_DIR
   echo "Work complete and bundled in:"
-  echo "$REPORT_DIR.tgz" 
+  echo "$REPORT_DIR.tgz"
 }
 
 make_tempdir
